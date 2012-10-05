@@ -265,9 +265,9 @@
 				"<div class='**'>"+
 					"<table>"+
 						"<tr>"+ /* Prev Month/Year Next*/
-							("<td class='**-prevnext prev'>"+(showP ? "◄":"")+"</td>")+
+							("<td class='**-prevnext prev'>"+(showP ? "<i class='icon icon-chevron-left'></i>":"")+"</td>")+
 							"<td class='**-monyear' colspan='5'>{MY}</td>"+
-							("<td class='**-prevnext next'>"+(showN ? "►":"")+"</td>")+
+							("<td class='**-prevnext next'>"+(showN ? "<i class='icon icon-chevron-right'></i>":"")+"</td>")+
 						"</tr>"+
 						"<tr class='**-dow'>"+ /* Day of Week */
 							(settings.sundayIsFirstDay ?

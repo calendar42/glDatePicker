@@ -9,11 +9,10 @@
 /* Calendar container div */
 .gldp-c42
 {
-	font-family:"trebuchet ms" !important;
-	background-color:#222 !important;
-	font-size:0.8em !important;
+	background-color:#AAA !important;
+	font-size:0.9em !important;
 	font-weight:bold !important;
-	border:solid 1px #222;
+	border:solid 0px #FFF;
 	width:100%;
 	height:100%;
 	
@@ -22,8 +21,9 @@
 /* Table style */
 .gldp-c42 table
 {
-	border-spacing:1px;
+	border-spacing:0px;
 	border-collapse:inherit;
+	border-color:#F5F5F5;
 	width:100%;
 	height:100%;
 }
@@ -46,18 +46,18 @@
 /* Previous and Next arrows */
 .gldp-c42-prevnext
 {
-	font-family:"times new roman";
-	background-color:#222;
-	color:#fff;
-	cursor:pointer;
+	background-color:#F5F5F5;
+	color:#444;
+	font-size:1.4em;
 }
 
 /* Month Year title */
 .gldp-c42-monyear
 {
-	background-color:#222;
-	color:#fff;
-	font-size:0.9em;
+	background-color:#F5F5F5;
+	color:#444;
+	font-size:1.4em;
+	font-weight:normal !important;
 }
 
 /* Days of the week (Sun, Mon, ...) */
@@ -71,49 +71,47 @@
 /* Selectable days */
 .gldp-c42-day
 {
-	background-color:#000;
-	color:#fff;
-	border:solid 1px #000;
+	background-color:#F5F5F5;
+	color:#444;
+	border:solid 1px #FFF;
 }
 
 /* Selected days */
 .gldp-c42-selected
 {
 	background-color:#024;
-	color:#fff;
+	color:#444;
 	border:solid 1px #008faf;
-	cursor:wait;
 }
 
 /* Today */
 .gldp-c42-today
 {
-	background-color:#00afff;
-	color:#fff;
-	border:solid 1px #00afff;
+	background-color:#577FA9;
+	color:#444;
+	border:solid 1px #577FA9;
 }
 
 /* Weekends */
 .gldp-c42-sat
 {
-	background-color:#000;
-	color:#00afff;
-	border:solid 1px #000;
+	background-color:#F5F5F5;
+	color:#AAA;
+	border:solid 1px #FFF;
 }
 
 .gldp-c42-sun
 {
-	background-color:#000;
-	color:#ff4f00;
-	border:solid 1px #000;
+	background-color:#F5F5F5;
+	color:#AAA;
+	border:solid 1px #FFF;
 }
 
 /* Non-selectable day.  Includes: previous/next month days and days that fall in the allowOld and endDate conditions */
 .gldp-c42-noday
 {
-	background-color:#222;
-	border:solid 1px #222;
+	background-color:#AAA;
+	border:solid 1px #DDD;
 	color:#666;
 	font-weight:normal;
-	cursor:wait;
 }
