@@ -79,7 +79,7 @@
 /* Selected days */
 .gldp-c42-selected
 {
-	background-color:#024;
+	background-color:#0B90C1;
 	color:#444;
 	border:solid 1px #008faf;
 }
@@ -87,9 +87,9 @@
 /* Today */
 .gldp-c42-today
 {
-	background-color:#577FA9;
+	background-color:#F5F5F5;
 	color:#444;
-	border:solid 1px #577FA9;
+	border:solid 2px #0B90C1;
 }
 
 /* Weekends */
