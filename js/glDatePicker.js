@@ -57,7 +57,8 @@
 		showPrevNext: true,
 		allowOld: true,
 		showAlways: false,
-		position: "absolute"
+		position: "absolute",
+		sundayIsFirstDay: true
 	};
 
 	var methods =
@@ -75,9 +76,7 @@
 				self.data("settings", settings);
 
 				// Bind click and focus event to show
-				self
-					.click(methods.show)
-					.focus(methods.show);
+				self.focus(methods.show);
 
 				// If always showing, trigger click causing it to show
 				if(settings.showAlways)
@@ -86,10 +85,10 @@
 				}
 
 				// Bind click elsewhere to hide
-				$(document).bind("click", function(e)
-				{
-					methods.hide.apply(self);
-				});
+				// $(document).bind("click", function(e)
+				// {
+				// 	methods.hide.apply(self);
+				// });
 			});
 		},
 
@@ -97,34 +96,19 @@
 		show: function(e)
 		{
 			e.stopPropagation();
-
 			// Instead of catching blur we'll find anything that's made visible
-			methods.hide.apply($("._gldp").not($(this)));
-
+			// methods.hide.apply($("._gldp").not($(this)));
 			methods.update.apply($(this));
-		},
-
-		// Hide the calendar
-		hide: function()
-		{
-			if($(this).length)
-			{
-				var s = $(this).data("settings");
-
-				// Hide if not showing always
-				if(!s.showAlways)
-				{
-					// Hide the calendar and remove class from target
-					$("#"+s.calId).slideUp(200);
-					$(this).removeClass("_gldp");
-				}
-			}
 		},
 
 		// Set a new start date
 		setStartDate: function(e)
 		{
 			$(this).data("settings").startDate = e;
+		},
+
+		getStartDate: function () {
+			return $(this).data('theDate');
 		},
 
 		// Set a new end date
@@ -211,15 +195,20 @@
 
 			// Render the cells as <TD>
 			var days = "";
+			var shift = settings.sundayIsFirstDay ? 1 : -5;
 			for(var y = 0, i = 0; y < 6; y++)
 			{
 				var row = "";
 
 				for(var x = 0; x < 7; x++, i++)
 				{
-					var p = ((prevDateLastDay - firstDate.getDay()) + i + 1);
+					var p = ((prevDateLastDay - firstDate.getDay()) + i + shift);
 					var n = p - prevDateLastDay;
-					var c = (x == 0) ? "sun" : ((x == 6) ? "sat" : "day");
+					if(settings.sundayIsFirstDay) {
+						var c = (x == 0) ? "sun" : ((x == 6) ? "sat" : "day");
+					} else {
+						var c = (x == 6) ? "sun" : ((x == 5) ? "sat" : "day");
+					}
 
 					// If value is outside of bounds its likely previous and next months
 					if(n >= 1 && n <= lastDay)
@@ -281,7 +270,9 @@
 							("<td class='**-prevnext next'>"+(showN ? "►":"")+"</td>")+
 						"</tr>"+
 						"<tr class='**-dow'>"+ /* Day of Week */
-							"<td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>"+
+							(settings.sundayIsFirstDay ?
+								"<td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>":
+								"<td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td><td>Sun</td>") +
 						"</tr>"+days+
 					"</table>"+
 				"</div>";
@@ -292,17 +283,7 @@
 			// If calendar doesn't exist, make one
 			if($("#"+calId).length == 0)
 			{
-				target.after
-				(
-					$("<div id='"+calId+"'></div>")
-					.css(
-					{
-						"position":settings.position,
-						"z-index":settings.zIndex,
-						"left":(target.offset().left),
-						"top":target.offset().top+target.outerHeight(true)
-					})
-				);
+				target.html($("<div id='"+calId+"'></div>"));
 			}
 
 			// Show calendar
@@ -313,7 +294,7 @@
 			target.addClass("_gldp");
 
 			// Handle previous/next clicks
-			$("[class*=-prevnext]", calendar).click(function(e)
+			$("[class*=-prevnext]", calendar).tappable(function(e)
 			{
 				e.stopPropagation();
 
@@ -330,22 +311,9 @@
 				}
 			});
 
-			// Highlight day cell on hover
+			
 			$("tr.days td:not(.noday, .selected)", calendar)
-				.mouseenter(function(e)
-				{
-					var css = "gldp-"+settings.cssName+"-"+$(this).children("div").attr("class");
-					$(this).removeClass(css).addClass(css+"-hover");
-				})
-				.mouseleave(function(e)
-				{
-					if(!$(this).hasClass("selected"))
-					{
-						var css = "gldp-"+settings.cssName+"-"+$(this).children("div").attr("class");
-						$(this).removeClass(css+"-hover").addClass(css);
-					}
-				})
-				.click(function(e)
+				.tappable(function(e)
 				{
 					e.stopPropagation();
 					var day = $(this).children("div").html();
@@ -366,7 +334,7 @@
 					settings.selectedDate = newDate;
 
 					// Hide calendar
-					methods.hide.apply(target);
+					// methods.hide.apply(target);
 				});
 		}
 	};
