@@ -6,16 +6,34 @@
 	http://forum.xda-developers.com/showthread.php?t=914284
 */
 
+
+._gldp .popover {
+    display:block;
+    top: auto;
+    left:9px;
+    right:9px;
+}
+
+._gldp .popover .arrow {
+	border-bottom-color: white;
+}
+
+._gldp .popover .popover-content {
+	padding: 0px;
+}
+
+._gldp .popover .popover-content a {
+	padding:0px;
+}
+
+._gldp .popover .popover-content a i {
+	width:24px;
+}
+
 /* Calendar container div */
 .gldp-c42
 {
-	background-color:#AAA !important;
-	font-size:0.9em !important;
-	font-weight:bold !important;
-	border:solid 0px #FFF;
-	width:100%;
-	height:100%;
-	
+
 }
 
 /* Table style */

@@ -54,7 +54,6 @@
 		startDate: -1,
 		endDate: -1,
 		selectedDate: -1,
-		showPrevNext: true,
 		allowOld: true,
 		showAlways: false,
 		position: "absolute",
@@ -252,22 +251,17 @@
 				days += "<tr class='days'>"+row+"</tr>";
 			}
 
-			// Determine whether to show Previous arrow
-			var showP = ((startTime < firstTime) || settings.allowOld);
-			var showN = ((lastTime < endTime) || (endTime < startTime));
-
-			// Force override to showPrevNext on false
-			if(!settings.showPrevNext) { showP = showN = false; }
-
 			// Build the html for the control
 			var titleMonthYear = monthNames[theDate.getMonth()]+" "+theDate.getFullYear();
+			
 			var html =
-				"<div class='**'>"+
+				"<div class='arrow'></div>" +
+				"<div class='** popover-content'>"+
 					"<table>"+
-						"<tr>"+ /* Prev Month/Year Next*/
-							("<td class='**-prevnext prev'>"+(showP ? "<i class='icon icon-chevron-left'></i>":"")+"</td>")+
+						"<tr>"+
+							"<td class='**-back-to-today'><a href='#today'><i class='icon icon-undo'></i></a></td>"+
 							"<td class='**-monyear' colspan='5'>{MY}</td>"+
-							("<td class='**-prevnext next'>"+(showN ? "<i class='icon icon-chevron-right'></i>":"")+"</td>")+
+							"<td class='**-close'><a href='#close'><i class='icon icon-remove'></i></a></td>"+
 						"</tr>"+
 						"<tr class='**-dow'>"+ /* Day of Week */
 							(settings.sundayIsFirstDay ?
@@ -283,7 +277,7 @@
 			// If calendar doesn't exist, make one
 			if($("#"+calId).length == 0)
 			{
-				target.html($("<div id='"+calId+"'></div>"));
+				target.html($("<div id='"+calId+"' class='popover bottom'></div>"));
 			}
 
 			// Show calendar
@@ -292,24 +286,6 @@
 
 			// Add a class to make it easier to find when hiding
 			target.addClass("_gldp");
-
-			// Handle previous/next clicks
-			$("[class*=-prevnext]", calendar).tappable(function(e)
-			{
-				e.stopPropagation();
-
-				if($(this).html() != "")
-				{
-					// Determine offset and set new date
-					var offset = $(this).hasClass("prev") ? -1 : 1;
-					var newDate = new Date(firstDate);
-						newDate.setMonth(theDate.getMonth()+offset);
-
-					// Save the new date and render the change
-					target.data("theDate", newDate);
-					methods.update.apply(target);
-				}
-			});
 
 			
 			$("tr.days td:not(.noday, .selected)", calendar)
