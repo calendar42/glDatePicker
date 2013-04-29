@@ -12,6 +12,7 @@
     top: auto;
     left:9px;
     right:9px;
+    max-width: 100%;
 }
 
 ._gldp .popover .arrow {
@@ -59,7 +60,7 @@
 	margin:0;
 	padding:0;
 	text-align:center;
-	height:42px;
+	height:50px;
 }
 
 /* Previous and Next arrows */
